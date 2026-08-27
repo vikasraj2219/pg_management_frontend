@@ -4,6 +4,8 @@ import ProtectedRoute from "@/routes/ProtectedRoute";
 import Login from "@/pages/Login";
 import RegisterOwner from "@/pages/RegisterOwner";
 import Dashboard from "@/pages/Dashboard";
+import Properties from "@/pages/Properties";
+import RoomsBeds from "@/pages/RoomsBeds";
 import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 
@@ -21,11 +23,11 @@ export default function App() {
         }
       >
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/rooms" element={<RoomsBeds />} />
 
-        {/* Placeholders for later phases (spec sections 3-26) so routing/nav
+        {/* Placeholders for later phases (spec sections 5-26) so routing/nav
             structure exists from Phase 1 without faking functionality. */}
-        <Route path="/properties" element={<ComingSoon title="Properties" />} />
-        <Route path="/rooms" element={<ComingSoon title="Rooms & Beds" />} />
         <Route path="/tenants" element={<ComingSoon title="Tenants" />} />
         <Route path="/documents" element={<ComingSoon title="KYC & Documents" />} />
         <Route path="/billing" element={<ComingSoon title="Billing & Ledger" />} />

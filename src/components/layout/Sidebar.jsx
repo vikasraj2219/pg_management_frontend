@@ -25,8 +25,8 @@ import { cn } from "@/lib/utils";
 // lands, so the nav won't silently 404.
 const NAV_ITEMS = [
   { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard", enabled: true },
-  { label: "Properties", icon: Building2, to: "/properties", enabled: false },
-  { label: "Rooms & Beds", icon: BedDouble, to: "/rooms", enabled: false },
+  { label: "Properties", icon: Building2, to: "/properties", enabled: true },
+  { label: "Rooms & Beds", icon: BedDouble, to: "/rooms", enabled: true },
   { label: "Tenants", icon: Users, to: "/tenants", enabled: false },
   { label: "KYC & Documents", icon: FileCheck2, to: "/documents", enabled: false },
   { label: "Billing & Ledger", icon: Receipt, to: "/billing", enabled: false },
