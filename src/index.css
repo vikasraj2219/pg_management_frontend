@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 20% 98%;
+  --foreground: 222 47% 11%;
+  --surface: 0 0% 100%;
+  --border: 214 32% 90%;
+  --muted: 210 20% 95%;
+  --muted-foreground: 215 16% 46%;
+
+  --primary: 231 44% 32%;
+  --primary-foreground: 0 0% 100%;
+
+  --accent: 38 92% 50%;
+  --accent-foreground: 24 10% 10%;
+
+  --success: 142 71% 35%;
+  --warning: 38 92% 50%;
+  --danger: 0 72% 51%;
+  --info: 199 89% 48%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-display;
+  letter-spacing: -0.01em;
+}
+
+/* Bed-grid motif: a subtle field of dots, each one standing for a bed.
+   Used sparingly as a signature texture (auth screen, sidebar mark) — the one
+   place we spend visual "boldness" in an otherwise quiet operations UI. */
+.bed-grid-texture {
+  background-image: radial-gradient(hsl(var(--accent) / 0.55) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 999px;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
