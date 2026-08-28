@@ -8,6 +8,7 @@ import Properties from "@/pages/Properties";
 import RoomsBeds from "@/pages/RoomsBeds";
 import Tenants from "@/pages/Tenants";
 import Documents from "@/pages/Documents";
+import Assets from "@/pages/Assets";
 import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 
@@ -36,7 +37,7 @@ export default function App() {
         <Route path="/payments" element={<ComingSoon title="Payments & Deposits" />} />
         <Route path="/maintenance" element={<ComingSoon title="Maintenance" />} />
         <Route path="/staff" element={<ComingSoon title="Staff" />} />
-        <Route path="/assets" element={<ComingSoon title="Inventory & Assets" />} />
+        <Route path="/assets" element={<Assets />} />
         <Route path="/food" element={<ComingSoon title="Food / Mess" />} />
         <Route path="/visitors" element={<ComingSoon title="Visitors" />} />
         <Route path="/notices" element={<ComingSoon title="Notices" />} />

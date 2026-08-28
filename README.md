@@ -1,14 +1,15 @@
-# Hostel & PG Management — Frontend (Phase 1)
+# Hostel & PG Management — Frontend (Phase 1-4)
 
 React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
 component library dependency, so it stays token-driven and easy to theme).
 
-This is **Phase 1 + Phase 2 + Phase 3**: Authentication + Admin Layout +
-Dashboard, Property + Building + Floor + Room + Bed management, and Tenant +
-KYC + Document management. The sidebar lists every module from the full
-spec; Dashboard, Properties, Rooms & Beds, Tenants, and KYC & Documents are
-live — the rest are disabled "Soon" items with placeholder routes.
+This covers **Phase 1** (Auth + Layout + Dashboard), **Phase 2** (Property +
+Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents), and
+**Phase 4** (Check-in + Agreements + Assets). The sidebar lists every module
+from the full spec; Dashboard, Properties, Rooms & Beds, Tenants, KYC &
+Documents, and Inventory & Assets are live — the rest are disabled "Soon"
+items with placeholder routes.
 
 ## Setup
 
@@ -30,9 +31,10 @@ src/
   components/layout/     Sidebar, Topbar, DashboardLayout (shell)
   components/dashboard/  StatCard, RevenueChart, OccupancyChart
   components/rooms/      BedPill — the occupancy-grid visual unit (spec section 4)
+  components/tenants/    AssignBedPanel, TenantDocuments, CheckInWizard
   context/AuthContext.jsx  Auth state, login/logout/register calls
   routes/ProtectedRoute.jsx  Redirects to /login when signed out
-  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, ComingSoon, NotFound
+  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Assets, ComingSoon, NotFound
   lib/api.js              Axios instance (cookie-based auth + Bearer fallback)
   lib/utils.js             cn() className helper
   App.jsx                  Route table
@@ -51,11 +53,17 @@ src/
   - *KYC & Documents* — upload a document (type + file), preview, verify, or reject inline.
 - **KYC & Documents** (`/documents`) — an org-wide review queue across every tenant, filterable by status, with the same preview/verify/reject actions.
 
+## Phase 4 pages
+
+- **Check-in wizard** (`components/tenants/CheckInWizard.jsx`) — a 5-step dialog (Room & Bed → Rent & Agreement → Assets → Meter & Condition → Confirm) opened from a tenant's "Check in" button on the Tenants list, or from the "Room & Bed" tab of a tenant's detail view. Submits everything in one call to `POST /api/checkins`, which allocates the bed, creates the agreement, assigns selected assets, and records the meter reading/room condition.
+- **Inventory & Assets** (`/assets`) — filterable inventory grid (property, category, status) with "Add asset", plus per-item Return / Repair / Retire actions.
+
 ## Next phases
 
-Phase 4 (Check-in + Room Allocation + Agreements + Assets) is next — add
-`pages/CheckIn.jsx` (replacing its `ComingSoon` route in `App.jsx`), building
-on the bed-assignment flow Tenants already uses.
+Phase 5 (Rent + Billing + Invoice + Ledger + Payments + Deposits) is next —
+add `pages/Billing.jsx` and `pages/Payments.jsx` (replacing their
+`ComingSoon` routes in `App.jsx`), building on the rent/deposit data the
+check-in flow already snapshots onto each tenant.
 
 ## Design tokens
 

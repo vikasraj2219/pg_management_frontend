@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog } from "@/components/ui/dialog";
 import TenantDocuments from "@/components/tenants/TenantDocuments";
 import AssignBedPanel from "@/components/tenants/AssignBedPanel";
+import CheckInWizard from "@/components/tenants/CheckInWizard";
 
 const STATUS_TONE = { active: "success", notice_period: "warning", checked_out: "default", suspended: "danger", archived: "default" };
 const STATUS_LABEL = { active: "Active", notice_period: "Notice period", checked_out: "Checked out", suspended: "Suspended", archived: "Archived" };
@@ -41,6 +42,7 @@ export default function Tenants() {
   const [form, setForm] = useState(emptyForm);
   const [formError, setFormError] = useState("");
   const [activeTenantId, setActiveTenantId] = useState(null);
+  const [checkInTenant, setCheckInTenant] = useState(null); // { _id, fullName }
 
   const { data, isLoading } = useQuery({
     queryKey: ["tenants", search, status, page],
@@ -146,6 +148,19 @@ export default function Tenants() {
                     <BedDouble className="h-3.5 w-3.5" />
                     {tenant.currentBed ? `Room ${tenant.currentBed.room?.roomNumber} · Bed ${tenant.currentBed.label}` : "No bed assigned"}
                   </div>
+                  {!tenant.currentBed && tenant.status !== "checked_out" && tenant.status !== "archived" && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="w-full"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCheckInTenant({ _id: tenant._id, fullName: tenant.fullName });
+                      }}
+                    >
+                      Check in
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -254,6 +269,18 @@ export default function Tenants() {
       </Dialog>
 
       {activeTenantId && <TenantDetailDialog tenantId={activeTenantId} onClose={() => setActiveTenantId(null)} />}
+
+      {checkInTenant && (
+        <CheckInWizard
+          tenantId={checkInTenant._id}
+          tenantName={checkInTenant.fullName}
+          onClose={() => setCheckInTenant(null)}
+          onCompleted={() => {
+            queryClient.invalidateQueries({ queryKey: ["tenants"] });
+            queryClient.invalidateQueries({ queryKey: ["dashboard-summary"] });
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -261,6 +288,7 @@ export default function Tenants() {
 function TenantDetailDialog({ tenantId, onClose }) {
   const queryClient = useQueryClient();
   const [tab, setTab] = useState("profile");
+  const [showWizard, setShowWizard] = useState(false);
 
   const { data: tenant, isLoading } = useQuery({
     queryKey: ["tenant", tenantId],
@@ -341,11 +369,30 @@ function TenantDetailDialog({ tenantId, onClose }) {
                 </p>
               </div>
             ) : (
-              <AssignBedPanel tenantId={tenantId} onAssigned={() => queryClient.invalidateQueries({ queryKey: ["tenant", tenantId] })} />
+              <div className="space-y-3">
+                <AssignBedPanel tenantId={tenantId} onAssigned={() => queryClient.invalidateQueries({ queryKey: ["tenant", tenantId] })} />
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="h-px flex-1 bg-border" />
+                  or
+                  <span className="h-px flex-1 bg-border" />
+                </div>
+                <Button variant="outline" className="w-full" onClick={() => setShowWizard(true)}>
+                  Run full check-in (agreement, assets, meter reading)
+                </Button>
+              </div>
             ))}
 
           {tab === "documents" && <TenantDocuments tenantId={tenantId} />}
         </>
+      )}
+
+      {showWizard && (
+        <CheckInWizard
+          tenantId={tenantId}
+          tenantName={tenant?.fullName}
+          onClose={() => setShowWizard(false)}
+          onCompleted={() => queryClient.invalidateQueries({ queryKey: ["tenant", tenantId] })}
+        />
       )}
     </Dialog>
   );

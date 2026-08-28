@@ -33,7 +33,7 @@ const NAV_ITEMS = [
   { label: "Payments & Deposits", icon: Wallet, to: "/payments", enabled: false },
   { label: "Maintenance", icon: Wrench, to: "/maintenance", enabled: false },
   { label: "Staff", icon: UsersRound, to: "/staff", enabled: false },
-  { label: "Inventory & Assets", icon: Boxes, to: "/assets", enabled: false },
+  { label: "Inventory & Assets", icon: Boxes, to: "/assets", enabled: true },
   { label: "Food / Mess", icon: UtensilsCrossed, to: "/food", enabled: false },
   { label: "Visitors", icon: ScanFace, to: "/visitors", enabled: false },
   { label: "Notices", icon: Megaphone, to: "/notices", enabled: false },
