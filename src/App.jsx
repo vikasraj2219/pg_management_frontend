@@ -6,6 +6,8 @@ import RegisterOwner from "@/pages/RegisterOwner";
 import Dashboard from "@/pages/Dashboard";
 import Properties from "@/pages/Properties";
 import RoomsBeds from "@/pages/RoomsBeds";
+import Tenants from "@/pages/Tenants";
+import Documents from "@/pages/Documents";
 import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 
@@ -25,11 +27,11 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/rooms" element={<RoomsBeds />} />
+        <Route path="/tenants" element={<Tenants />} />
+        <Route path="/documents" element={<Documents />} />
 
-        {/* Placeholders for later phases (spec sections 5-26) so routing/nav
+        {/* Placeholders for later phases (spec sections 7-26) so routing/nav
             structure exists from Phase 1 without faking functionality. */}
-        <Route path="/tenants" element={<ComingSoon title="Tenants" />} />
-        <Route path="/documents" element={<ComingSoon title="KYC & Documents" />} />
         <Route path="/billing" element={<ComingSoon title="Billing & Ledger" />} />
         <Route path="/payments" element={<ComingSoon title="Payments & Deposits" />} />
         <Route path="/maintenance" element={<ComingSoon title="Maintenance" />} />

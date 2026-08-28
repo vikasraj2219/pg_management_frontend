@@ -4,11 +4,11 @@ React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
 component library dependency, so it stays token-driven and easy to theme).
 
-This is **Phase 1 + Phase 2**: Authentication + Admin Layout + Dashboard, plus
-Property + Building + Floor + Room + Bed management. The sidebar lists every
-module from the full spec; Dashboard, Properties, and Rooms & Beds are live —
-the rest are disabled "Soon" items with placeholder routes so the information
-architecture is visible immediately and no route 404s as later phases land.
+This is **Phase 1 + Phase 2 + Phase 3**: Authentication + Admin Layout +
+Dashboard, Property + Building + Floor + Room + Bed management, and Tenant +
+KYC + Document management. The sidebar lists every module from the full
+spec; Dashboard, Properties, Rooms & Beds, Tenants, and KYC & Documents are
+live — the rest are disabled "Soon" items with placeholder routes.
 
 ## Setup
 
@@ -43,15 +43,23 @@ src/
 - **Properties** (`/properties`) — card grid of properties with a live bed-occupancy summary per card; "Add property" opens a form dialog.
 - **Rooms & Beds** (`/rooms?property=<id>`) — property picker, rooms grouped by floor, each rendered as a colored bed grid (🟢 available / 🔴 occupied / 🟡 notice period / 🔵 maintenance / blocked / reserved) matching the spec's example. "Add room" walks through building → floor → room in one dialog, creating a building/floor inline if none exist yet, and auto-generates the room's beds from its capacity. Clicking a non-occupied bed opens a quick status-change dialog; occupied beds explain that changes go through checkout (coming in a later phase).
 
+## Phase 3 pages
+
+- **Tenants** (`/tenants`) — searchable, filterable, paginated tenant list. "Add tenant" captures the core spec-section-5 fields. Clicking a tenant opens a detail dialog with three tabs:
+  - *Profile* — all tenant fields.
+  - *Room & Bed* — assign a bed (property → available-bed picker) if unassigned, or vacate if assigned.
+  - *KYC & Documents* — upload a document (type + file), preview, verify, or reject inline.
+- **KYC & Documents** (`/documents`) — an org-wide review queue across every tenant, filterable by status, with the same preview/verify/reject actions.
+
+## Next phases
+
+Phase 4 (Check-in + Room Allocation + Agreements + Assets) is next — add
+`pages/CheckIn.jsx` (replacing its `ComingSoon` route in `App.jsx`), building
+on the bed-assignment flow Tenants already uses.
+
 ## Design tokens
 
 Colors, radii and fonts are defined as CSS variables in `src/index.css` and
 mapped into Tailwind via `tailwind.config.js` — change the palette in one
 place. Fonts: **Space Grotesk** for headings/display, **Inter** for UI text,
 **IBM Plex Mono** reserved for tabular/data values in later phases.
-
-## Next phases
-
-Phase 3 (Tenant + KYC + Documents) is next — add `pages/Tenants.jsx` and
-`pages/Documents.jsx` (replacing their `ComingSoon` routes in `App.jsx`),
-backed by TanStack Query calls into the corresponding backend routes.
