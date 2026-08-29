@@ -13,6 +13,7 @@ import { Dialog } from "@/components/ui/dialog";
 import TenantDocuments from "@/components/tenants/TenantDocuments";
 import AssignBedPanel from "@/components/tenants/AssignBedPanel";
 import CheckInWizard from "@/components/tenants/CheckInWizard";
+import CheckoutWizard from "@/components/tenants/CheckoutWizard";
 import TenantLedgerPanel from "@/components/billing/TenantLedgerPanel";
 
 const STATUS_TONE = { active: "success", notice_period: "warning", checked_out: "default", suspended: "danger", archived: "default" };
@@ -290,6 +291,7 @@ function TenantDetailDialog({ tenantId, onClose }) {
   const queryClient = useQueryClient();
   const [tab, setTab] = useState("profile");
   const [showWizard, setShowWizard] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const { data: tenant, isLoading } = useQuery({
     queryKey: ["tenant", tenantId],
@@ -365,6 +367,9 @@ function TenantDetailDialog({ tenantId, onClose }) {
                     Vacate
                   </Button>
                 </div>
+                <Button variant="default" className="w-full" onClick={() => setShowCheckout(true)}>
+                  Run full checkout (settlement, deposit refund, bed release)
+                </Button>
                 <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <ArrowLeftRight className="h-3.5 w-3.5" />
                   Room transfers are available from the Rooms &amp; Beds page.
@@ -395,6 +400,19 @@ function TenantDetailDialog({ tenantId, onClose }) {
           tenantName={tenant?.fullName}
           onClose={() => setShowWizard(false)}
           onCompleted={() => queryClient.invalidateQueries({ queryKey: ["tenant", tenantId] })}
+        />
+      )}
+
+      {showCheckout && (
+        <CheckoutWizard
+          tenantId={tenantId}
+          tenantName={tenant?.fullName}
+          onClose={() => setShowCheckout(false)}
+          onCompleted={() => {
+            queryClient.invalidateQueries({ queryKey: ["tenant", tenantId] });
+            queryClient.invalidateQueries({ queryKey: ["tenants"] });
+            queryClient.invalidateQueries({ queryKey: ["dashboard-summary"] });
+          }}
         />
       )}
     </Dialog>

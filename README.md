@@ -1,4 +1,4 @@
-# Hostel & PG Management — Frontend (Phase 1-5)
+# Hostel & PG Management — Frontend (Phase 1-6)
 
 React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
@@ -6,11 +6,14 @@ component library dependency, so it stays token-driven and easy to theme).
 
 This covers **Phase 1** (Auth + Layout + Dashboard), **Phase 2** (Property +
 Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents),
-**Phase 4** (Check-in + Agreements + Assets), and **Phase 5** (Billing +
-Invoices + Payments + Deposits). The sidebar lists every module from the
-full spec; Dashboard, Properties, Rooms & Beds, Tenants, KYC & Documents,
-Inventory & Assets, Billing & Ledger, and Payments & Deposits are live — the
-rest are disabled "Soon" items with placeholder routes.
+**Phase 4** (Check-in + Agreements + Assets), **Phase 5** (Billing +
+Invoices + Payments + Deposits), and **Phase 6** (Checkout + Settlement).
+The sidebar lists every module from the full spec; Dashboard, Properties,
+Rooms & Beds, Tenants, KYC & Documents, Inventory & Assets, Billing &
+Ledger, and Payments & Deposits are live — the rest are disabled "Soon"
+items with placeholder routes. Checkout itself isn't a separate nav item
+(mirroring the spec, which treats it as a workflow, not a module) — it's
+reached from a tenant's "Room & Bed" tab.
 
 ## Setup
 
@@ -32,7 +35,7 @@ src/
   components/layout/     Sidebar, Topbar, DashboardLayout (shell)
   components/dashboard/  StatCard, RevenueChart, OccupancyChart
   components/rooms/      BedPill — the occupancy-grid visual unit (spec section 4)
-  components/tenants/    AssignBedPanel, TenantDocuments, CheckInWizard
+  components/tenants/    AssignBedPanel, TenantDocuments, CheckInWizard, CheckoutWizard
   components/billing/    TenantLedgerPanel — read-only ledger summary shown in tenant detail
   context/AuthContext.jsx  Auth state, login/logout/register calls
   routes/ProtectedRoute.jsx  Redirects to /login when signed out
@@ -66,10 +69,16 @@ src/
 - **Payments & Deposits** (`/payments`) — tabbed page: a global payments list with "Record payment" (tenant → optional invoice → amount/method/transaction ID), and a deposits tab showing required/collected/refundable per tenant with a deduction-adding dialog.
 - The tenant detail dialog (Tenants page) gains a **Billing** tab showing the computed ledger — total charged, total paid, outstanding balance, and invoice history.
 
+## Phase 6 pages
+
+- **Checkout wizard** (`components/tenants/CheckoutWizard.jsx`) — a 5-step dialog (Review → Final Charges → Assets → Condition & Damage → Settle & Confirm) opened from the "Room & Bed" tab of a tenant who currently has a bed. Shows pending rent and notice-period status upfront, lets you add last-mile charges, mark each assigned asset's return condition, log room-condition notes and a damage charge, then previews the deposit settlement math live before submitting to `POST /api/checkouts` — which settles invoices, releases the bed, and marks the tenant checked out in one call.
+
 ## Next phases
 
-Phase 6 (Checkout + Settlement) is next — add `pages/Checkout.jsx`, building
-on the invoice/payment/deposit machinery Billing and Payments already use.
+Phase 7 (Expenses + Electricity) is next — add `pages/Expenses.jsx` and wire
+up real meter readings (check-in and checkout both already collect a
+lightweight initial/final reading that a full `Meter`/`MeterReading` model
+can build on).
 
 ## Design tokens
 
