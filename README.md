@@ -1,15 +1,16 @@
-# Hostel & PG Management — Frontend (Phase 1-4)
+# Hostel & PG Management — Frontend (Phase 1-5)
 
 React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
 component library dependency, so it stays token-driven and easy to theme).
 
 This covers **Phase 1** (Auth + Layout + Dashboard), **Phase 2** (Property +
-Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents), and
-**Phase 4** (Check-in + Agreements + Assets). The sidebar lists every module
-from the full spec; Dashboard, Properties, Rooms & Beds, Tenants, KYC &
-Documents, and Inventory & Assets are live — the rest are disabled "Soon"
-items with placeholder routes.
+Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents),
+**Phase 4** (Check-in + Agreements + Assets), and **Phase 5** (Billing +
+Invoices + Payments + Deposits). The sidebar lists every module from the
+full spec; Dashboard, Properties, Rooms & Beds, Tenants, KYC & Documents,
+Inventory & Assets, Billing & Ledger, and Payments & Deposits are live — the
+rest are disabled "Soon" items with placeholder routes.
 
 ## Setup
 
@@ -32,9 +33,10 @@ src/
   components/dashboard/  StatCard, RevenueChart, OccupancyChart
   components/rooms/      BedPill — the occupancy-grid visual unit (spec section 4)
   components/tenants/    AssignBedPanel, TenantDocuments, CheckInWizard
+  components/billing/    TenantLedgerPanel — read-only ledger summary shown in tenant detail
   context/AuthContext.jsx  Auth state, login/logout/register calls
   routes/ProtectedRoute.jsx  Redirects to /login when signed out
-  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Assets, ComingSoon, NotFound
+  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, ComingSoon, NotFound
   lib/api.js              Axios instance (cookie-based auth + Bearer fallback)
   lib/utils.js             cn() className helper
   App.jsx                  Route table
@@ -58,12 +60,16 @@ src/
 - **Check-in wizard** (`components/tenants/CheckInWizard.jsx`) — a 5-step dialog (Room & Bed → Rent & Agreement → Assets → Meter & Condition → Confirm) opened from a tenant's "Check in" button on the Tenants list, or from the "Room & Bed" tab of a tenant's detail view. Submits everything in one call to `POST /api/checkins`, which allocates the bed, creates the agreement, assigns selected assets, and records the meter reading/room condition.
 - **Inventory & Assets** (`/assets`) — filterable inventory grid (property, category, status) with "Add asset", plus per-item Return / Repair / Retire actions.
 
+## Phase 5 pages
+
+- **Billing & Ledger** (`/billing`) — filterable invoice list, "Generate monthly invoices" (property + month/year, reports created/skipped counts), and an invoice detail dialog to add charges, view the subtotal/discount/late-fee breakdown, and record a payment inline.
+- **Payments & Deposits** (`/payments`) — tabbed page: a global payments list with "Record payment" (tenant → optional invoice → amount/method/transaction ID), and a deposits tab showing required/collected/refundable per tenant with a deduction-adding dialog.
+- The tenant detail dialog (Tenants page) gains a **Billing** tab showing the computed ledger — total charged, total paid, outstanding balance, and invoice history.
+
 ## Next phases
 
-Phase 5 (Rent + Billing + Invoice + Ledger + Payments + Deposits) is next —
-add `pages/Billing.jsx` and `pages/Payments.jsx` (replacing their
-`ComingSoon` routes in `App.jsx`), building on the rent/deposit data the
-check-in flow already snapshots onto each tenant.
+Phase 6 (Checkout + Settlement) is next — add `pages/Checkout.jsx`, building
+on the invoice/payment/deposit machinery Billing and Payments already use.
 
 ## Design tokens
 

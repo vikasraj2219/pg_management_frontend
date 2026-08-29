@@ -13,6 +13,7 @@ import { Dialog } from "@/components/ui/dialog";
 import TenantDocuments from "@/components/tenants/TenantDocuments";
 import AssignBedPanel from "@/components/tenants/AssignBedPanel";
 import CheckInWizard from "@/components/tenants/CheckInWizard";
+import TenantLedgerPanel from "@/components/billing/TenantLedgerPanel";
 
 const STATUS_TONE = { active: "success", notice_period: "warning", checked_out: "default", suspended: "danger", archived: "default" };
 const STATUS_LABEL = { active: "Active", notice_period: "Notice period", checked_out: "Checked out", suspended: "Suspended", archived: "Archived" };
@@ -313,6 +314,7 @@ function TenantDetailDialog({ tenantId, onClose }) {
               { id: "profile", label: "Profile" },
               { id: "bed", label: "Room & Bed" },
               { id: "documents", label: "KYC & Documents" },
+              { id: "billing", label: "Billing" },
             ].map((t) => (
               <button
                 key={t.id}
@@ -383,6 +385,7 @@ function TenantDetailDialog({ tenantId, onClose }) {
             ))}
 
           {tab === "documents" && <TenantDocuments tenantId={tenantId} />}
+          {tab === "billing" && <TenantLedgerPanel tenantId={tenantId} />}
         </>
       )}
 
