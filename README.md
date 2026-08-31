@@ -1,4 +1,4 @@
-# Hostel & PG Management — Frontend (Phase 1-6)
+# Hostel & PG Management — Frontend (Phase 1-8)
 
 React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
@@ -7,13 +7,15 @@ component library dependency, so it stays token-driven and easy to theme).
 This covers **Phase 1** (Auth + Layout + Dashboard), **Phase 2** (Property +
 Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents),
 **Phase 4** (Check-in + Agreements + Assets), **Phase 5** (Billing +
-Invoices + Payments + Deposits), and **Phase 6** (Checkout + Settlement).
-The sidebar lists every module from the full spec; Dashboard, Properties,
-Rooms & Beds, Tenants, KYC & Documents, Inventory & Assets, Billing &
-Ledger, and Payments & Deposits are live — the rest are disabled "Soon"
-items with placeholder routes. Checkout itself isn't a separate nav item
-(mirroring the spec, which treats it as a workflow, not a module) — it's
-reached from a tenant's "Room & Bed" tab.
+Invoices + Payments + Deposits), **Phase 6** (Checkout + Settlement),
+**Phase 7** (Expenses + Electricity), and **Phase 8** (Maintenance +
+Staff). The sidebar lists every module from the full spec; Dashboard,
+Properties, Rooms & Beds, Tenants, KYC & Documents, Inventory & Assets,
+Billing & Ledger, Payments & Deposits, Expenses & Electricity, Maintenance,
+and Staff are live — the rest are disabled "Soon" items with placeholder
+routes. Checkout itself isn't a separate nav item (mirroring the spec,
+which treats it as a workflow, not a module) — it's reached from a
+tenant's "Room & Bed" tab.
 
 ## Setup
 
@@ -39,7 +41,7 @@ src/
   components/billing/    TenantLedgerPanel — read-only ledger summary shown in tenant detail
   context/AuthContext.jsx  Auth state, login/logout/register calls
   routes/ProtectedRoute.jsx  Redirects to /login when signed out
-  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, ComingSoon, NotFound
+  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, Expenses, Maintenance, Staff, ComingSoon, NotFound
   lib/api.js              Axios instance (cookie-based auth + Bearer fallback)
   lib/utils.js             cn() className helper
   App.jsx                  Route table
@@ -73,12 +75,20 @@ src/
 
 - **Checkout wizard** (`components/tenants/CheckoutWizard.jsx`) — a 5-step dialog (Review → Final Charges → Assets → Condition & Damage → Settle & Confirm) opened from the "Room & Bed" tab of a tenant who currently has a bed. Shows pending rent and notice-period status upfront, lets you add last-mile charges, mark each assigned asset's return condition, log room-condition notes and a damage charge, then previews the deposit settlement math live before submitting to `POST /api/checkouts` — which settles invoices, releases the bed, and marks the tenant checked out in one call.
 
+## Phase 7 pages
+
+- **Expenses & Electricity** (`/expenses`) — tabbed page: an Expenses tab (filterable list with a running total, "Add expense" with an optional bill/receipt upload) and a Meters tab (add a meter, click into it for its full reading history plus a form to record a new one — units and total are always shown as computed, never editable).
+- The dashboard's "Monthly expenses" card now links here instead of the not-yet-built Reports page.
+
+## Phase 8 pages
+
+- **Maintenance** (`/maintenance`) — filterable ticket list (property, status), "New ticket" with up to 5 photo uploads, and a ticket detail dialog to change status, assign staff, record cost, and see the full status-change history. The dashboard's "Open maintenance tickets" card links here.
+- **Staff** (`/staff`) — filterable staff directory (property, role) with "Add staff" and a "Mark inactive" action per card.
+
 ## Next phases
 
-Phase 7 (Expenses + Electricity) is next — add `pages/Expenses.jsx` and wire
-up real meter readings (check-in and checkout both already collect a
-lightweight initial/final reading that a full `Meter`/`MeterReading` model
-can build on).
+Phase 9 (Food/Mess + Visitors + Notices) is next — add `pages/Food.jsx`,
+`pages/Visitors.jsx`, and `pages/Notices.jsx`.
 
 ## Design tokens
 

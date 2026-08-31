@@ -120,7 +120,7 @@ export default function Dashboard() {
             icon={IndianRupee}
             label="Monthly expenses"
             value={isLoading ? "—" : formatINR(financial?.monthlyExpenses)}
-            onClick={() => navigate("/reports")}
+            onClick={() => navigate("/expenses")}
           />
         </div>
       </section>

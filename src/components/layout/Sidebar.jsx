@@ -16,6 +16,7 @@ import {
   BarChart3,
   Settings,
   ShieldCheck,
+  Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -31,8 +32,9 @@ const NAV_ITEMS = [
   { label: "KYC & Documents", icon: FileCheck2, to: "/documents", enabled: true },
   { label: "Billing & Ledger", icon: Receipt, to: "/billing", enabled: true },
   { label: "Payments & Deposits", icon: Wallet, to: "/payments", enabled: true },
-  { label: "Maintenance", icon: Wrench, to: "/maintenance", enabled: false },
-  { label: "Staff", icon: UsersRound, to: "/staff", enabled: false },
+  { label: "Expenses & Electricity", icon: Zap, to: "/expenses", enabled: true },
+  { label: "Maintenance", icon: Wrench, to: "/maintenance", enabled: true },
+  { label: "Staff", icon: UsersRound, to: "/staff", enabled: true },
   { label: "Inventory & Assets", icon: Boxes, to: "/assets", enabled: true },
   { label: "Food / Mess", icon: UtensilsCrossed, to: "/food", enabled: false },
   { label: "Visitors", icon: ScanFace, to: "/visitors", enabled: false },

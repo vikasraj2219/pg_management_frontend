@@ -11,6 +11,9 @@ import Documents from "@/pages/Documents";
 import Billing from "@/pages/Billing";
 import Payments from "@/pages/Payments";
 import Assets from "@/pages/Assets";
+import Expenses from "@/pages/Expenses";
+import Maintenance from "@/pages/Maintenance";
+import Staff from "@/pages/Staff";
 import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 
@@ -33,13 +36,14 @@ export default function App() {
         <Route path="/tenants" element={<Tenants />} />
         <Route path="/documents" element={<Documents />} />
 
-        {/* Placeholders for later phases (spec sections 8, 14-26) so
+        {/* Placeholders for later phases (spec sections 18-26) so
             routing/nav structure exists from Phase 1 without faking
             functionality. */}
         <Route path="/billing" element={<Billing />} />
         <Route path="/payments" element={<Payments />} />
-        <Route path="/maintenance" element={<ComingSoon title="Maintenance" />} />
-        <Route path="/staff" element={<ComingSoon title="Staff" />} />
+        <Route path="/expenses" element={<Expenses />} />
+        <Route path="/maintenance" element={<Maintenance />} />
+        <Route path="/staff" element={<Staff />} />
         <Route path="/assets" element={<Assets />} />
         <Route path="/food" element={<ComingSoon title="Food / Mess" />} />
         <Route path="/visitors" element={<ComingSoon title="Visitors" />} />
