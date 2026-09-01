@@ -14,6 +14,9 @@ import Assets from "@/pages/Assets";
 import Expenses from "@/pages/Expenses";
 import Maintenance from "@/pages/Maintenance";
 import Staff from "@/pages/Staff";
+import Food from "@/pages/Food";
+import Visitors from "@/pages/Visitors";
+import Notices from "@/pages/Notices";
 import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 
@@ -36,7 +39,7 @@ export default function App() {
         <Route path="/tenants" element={<Tenants />} />
         <Route path="/documents" element={<Documents />} />
 
-        {/* Placeholders for later phases (spec sections 18-26) so
+        {/* Placeholders for later phases (spec sections 22-26) so
             routing/nav structure exists from Phase 1 without faking
             functionality. */}
         <Route path="/billing" element={<Billing />} />
@@ -45,9 +48,9 @@ export default function App() {
         <Route path="/maintenance" element={<Maintenance />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/assets" element={<Assets />} />
-        <Route path="/food" element={<ComingSoon title="Food / Mess" />} />
-        <Route path="/visitors" element={<ComingSoon title="Visitors" />} />
-        <Route path="/notices" element={<ComingSoon title="Notices" />} />
+        <Route path="/food" element={<Food />} />
+        <Route path="/visitors" element={<Visitors />} />
+        <Route path="/notices" element={<Notices />} />
         <Route path="/reports" element={<ComingSoon title="Reports" />} />
         <Route path="/audit-log" element={<ComingSoon title="Audit Log" />} />
         <Route path="/settings" element={<ComingSoon title="Settings" />} />

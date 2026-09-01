@@ -1,4 +1,4 @@
-# Hostel & PG Management — Frontend (Phase 1-8)
+# Hostel & PG Management — Frontend (Phase 1-9)
 
 React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
@@ -8,14 +8,12 @@ This covers **Phase 1** (Auth + Layout + Dashboard), **Phase 2** (Property +
 Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents),
 **Phase 4** (Check-in + Agreements + Assets), **Phase 5** (Billing +
 Invoices + Payments + Deposits), **Phase 6** (Checkout + Settlement),
-**Phase 7** (Expenses + Electricity), and **Phase 8** (Maintenance +
-Staff). The sidebar lists every module from the full spec; Dashboard,
-Properties, Rooms & Beds, Tenants, KYC & Documents, Inventory & Assets,
-Billing & Ledger, Payments & Deposits, Expenses & Electricity, Maintenance,
-and Staff are live — the rest are disabled "Soon" items with placeholder
-routes. Checkout itself isn't a separate nav item (mirroring the spec,
-which treats it as a workflow, not a module) — it's reached from a
-tenant's "Room & Bed" tab.
+**Phase 7** (Expenses + Electricity), **Phase 8** (Maintenance + Staff),
+and **Phase 9** (Food/Mess + Visitors + Notices). The sidebar lists every
+module from the full spec; every item is now live except Reports, Audit
+Log, and Settings (Phase 10). Checkout itself isn't a separate nav item
+(mirroring the spec, which treats it as a workflow, not a module) — it's
+reached from a tenant's "Room & Bed" tab.
 
 ## Setup
 
@@ -41,7 +39,7 @@ src/
   components/billing/    TenantLedgerPanel — read-only ledger summary shown in tenant detail
   context/AuthContext.jsx  Auth state, login/logout/register calls
   routes/ProtectedRoute.jsx  Redirects to /login when signed out
-  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, Expenses, Maintenance, Staff, ComingSoon, NotFound
+  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, Expenses, Maintenance, Staff, Food, Visitors, Notices, ComingSoon, NotFound
   lib/api.js              Axios instance (cookie-based auth + Bearer fallback)
   lib/utils.js             cn() className helper
   App.jsx                  Route table
@@ -85,10 +83,16 @@ src/
 - **Maintenance** (`/maintenance`) — filterable ticket list (property, status), "New ticket" with up to 5 photo uploads, and a ticket detail dialog to change status, assign staff, record cost, and see the full status-change history. The dashboard's "Open maintenance tickets" card links here.
 - **Staff** (`/staff`) — filterable staff directory (property, role) with "Add staff" and a "Mark inactive" action per card.
 
+## Phase 9 pages
+
+- **Food / Mess** (`/food`) — a Weekly menu tab (property + week picker, click any meal slot to edit its items inline) and a Feedback & complaints tab surfacing tenant ratings/comments/complaints across meal records.
+- **Visitors** (`/visitors`) — "currently inside" toggle, "Log visitor" entry form, and a one-click checkout action per visitor. The dashboard's "Today's visitors" card links here.
+- **Notices** (`/notices`) — "New notice" with an audience picker (all tenants, property, floor, room, or hand-picked tenants) that reveals the right follow-up fields per scope.
+
 ## Next phases
 
-Phase 9 (Food/Mess + Visitors + Notices) is next — add `pages/Food.jsx`,
-`pages/Visitors.jsx`, and `pages/Notices.jsx`.
+Phase 10 (Reports + Analytics + Settings + Audit Logs) is the last phase —
+add `pages/Reports.jsx`, `pages/AuditLog.jsx`, and `pages/Settings.jsx`.
 
 ## Design tokens
 
