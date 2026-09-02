@@ -1,19 +1,19 @@
-# Hostel & PG Management — Frontend (Phase 1-9)
+# Hostel & PG Management — Frontend (Phase 1-10, complete)
 
 React 18 + Vite + Tailwind CSS admin dashboard. Component patterns follow the
 shadcn/ui approach (small, local `components/ui/*` primitives instead of a
 component library dependency, so it stays token-driven and easy to theme).
 
-This covers **Phase 1** (Auth + Layout + Dashboard), **Phase 2** (Property +
-Building + Floor + Room + Bed), **Phase 3** (Tenant + KYC + Documents),
-**Phase 4** (Check-in + Agreements + Assets), **Phase 5** (Billing +
-Invoices + Payments + Deposits), **Phase 6** (Checkout + Settlement),
-**Phase 7** (Expenses + Electricity), **Phase 8** (Maintenance + Staff),
-and **Phase 9** (Food/Mess + Visitors + Notices). The sidebar lists every
-module from the full spec; every item is now live except Reports, Audit
-Log, and Settings (Phase 10). Checkout itself isn't a separate nav item
-(mirroring the spec, which treats it as a workflow, not a module) — it's
-reached from a tenant's "Room & Bed" tab.
+This is the **full build plan**, all 10 phases: **Phase 1** (Auth + Layout +
+Dashboard), **Phase 2** (Property + Building + Floor + Room + Bed), **Phase
+3** (Tenant + KYC + Documents), **Phase 4** (Check-in + Agreements +
+Assets), **Phase 5** (Billing + Invoices + Payments + Deposits), **Phase 6**
+(Checkout + Settlement), **Phase 7** (Expenses + Electricity), **Phase 8**
+(Maintenance + Staff), **Phase 9** (Food/Mess + Visitors + Notices), and
+**Phase 10** (Reports + Analytics + Settings + Audit Logs). Every module in
+the sidebar is now live — nothing is disabled. Checkout itself isn't a
+separate nav item (mirroring the spec, which treats it as a workflow, not a
+module) — it's reached from a tenant's "Room & Bed" tab.
 
 ## Setup
 
@@ -39,7 +39,7 @@ src/
   components/billing/    TenantLedgerPanel — read-only ledger summary shown in tenant detail
   context/AuthContext.jsx  Auth state, login/logout/register calls
   routes/ProtectedRoute.jsx  Redirects to /login when signed out
-  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, Expenses, Maintenance, Staff, Food, Visitors, Notices, ComingSoon, NotFound
+  pages/                  Login, RegisterOwner, Dashboard, Properties, RoomsBeds, Tenants, Documents, Billing, Payments, Assets, Expenses, Maintenance, Staff, Food, Visitors, Notices, Reports, AuditLog, Settings, ComingSoon, NotFound
   lib/api.js              Axios instance (cookie-based auth + Bearer fallback)
   lib/utils.js             cn() className helper
   App.jsx                  Route table
@@ -89,11 +89,17 @@ src/
 - **Visitors** (`/visitors`) — "currently inside" toggle, "Log visitor" entry form, and a one-click checkout action per visitor. The dashboard's "Today's visitors" card links here.
 - **Notices** (`/notices`) — "New notice" with an audience picker (all tenants, property, floor, room, or hand-picked tenants) that reveals the right follow-up fields per scope.
 
-## Next phases
+## Phase 10 pages
 
-Phase 10 (Reports + Analytics + Settings + Audit Logs) is the last phase —
-add `pages/Reports.jsx`, `pages/AuditLog.jsx`, and `pages/Settings.jsx`.
+- **Reports** (`/reports`) — four tabs (Financial, Occupancy, Tenants, Operations) with property + date-range filters and an "Export CSV" button that downloads the current tab/filter combination directly from the API.
+- **Settings** (`/settings`) — three tabs: Organization (name, contact, currency, date format, notifications), Property settings (per-property billing date, late fee, electricity rate, deposit rule — click a property to edit), and Users (dashboard login accounts, owner-only: invite with a role and property access, activate/deactivate).
+- **Audit Log** (`/audit-log`) — a filterable read-only feed of every logged financial change (who, what, when), sourced from the `logAudit()` hooks the backend added to invoice, payment, deposit, and tenant rent/deposit mutations.
 
+## Project status
+
+All 10 phases are complete and every sidebar item is live. See the backend
+README's "Build status" section for what's intentionally out of scope for
+v1 (PDF/Excel export, production file storage, real notification delivery).
 ## Design tokens
 
 Colors, radii and fonts are defined as CSS variables in `src/index.css` and

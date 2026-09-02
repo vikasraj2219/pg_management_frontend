@@ -17,7 +17,9 @@ import Staff from "@/pages/Staff";
 import Food from "@/pages/Food";
 import Visitors from "@/pages/Visitors";
 import Notices from "@/pages/Notices";
-import ComingSoon from "@/pages/ComingSoon";
+import Reports from "@/pages/Reports";
+import AuditLog from "@/pages/AuditLog";
+import Settings from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
 
 export default function App() {
@@ -38,10 +40,6 @@ export default function App() {
         <Route path="/rooms" element={<RoomsBeds />} />
         <Route path="/tenants" element={<Tenants />} />
         <Route path="/documents" element={<Documents />} />
-
-        {/* Placeholders for later phases (spec sections 22-26) so
-            routing/nav structure exists from Phase 1 without faking
-            functionality. */}
         <Route path="/billing" element={<Billing />} />
         <Route path="/payments" element={<Payments />} />
         <Route path="/expenses" element={<Expenses />} />
@@ -51,9 +49,9 @@ export default function App() {
         <Route path="/food" element={<Food />} />
         <Route path="/visitors" element={<Visitors />} />
         <Route path="/notices" element={<Notices />} />
-        <Route path="/reports" element={<ComingSoon title="Reports" />} />
-        <Route path="/audit-log" element={<ComingSoon title="Audit Log" />} />
-        <Route path="/settings" element={<ComingSoon title="Settings" />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/audit-log" element={<AuditLog />} />
+        <Route path="/settings" element={<Settings />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/dashboard" replace />} />

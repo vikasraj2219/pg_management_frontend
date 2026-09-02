@@ -39,9 +39,9 @@ const NAV_ITEMS = [
   { label: "Food / Mess", icon: UtensilsCrossed, to: "/food", enabled: true },
   { label: "Visitors", icon: ScanFace, to: "/visitors", enabled: true },
   { label: "Notices", icon: Megaphone, to: "/notices", enabled: true },
-  { label: "Reports", icon: BarChart3, to: "/reports", enabled: false },
-  { label: "Audit Log", icon: ShieldCheck, to: "/audit-log", enabled: false },
-  { label: "Settings", icon: Settings, to: "/settings", enabled: false },
+  { label: "Reports", icon: BarChart3, to: "/reports", enabled: true },
+  { label: "Audit Log", icon: ShieldCheck, to: "/audit-log", enabled: true },
+  { label: "Settings", icon: Settings, to: "/settings", enabled: true },
 ];
 
 export default function Sidebar({ open, onNavigate }) {
