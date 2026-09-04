@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { BedDouble } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Logo from "@/components/branding/Logo";
 
 export default function Login() {
   const { login } = useAuth();
@@ -37,7 +37,7 @@ export default function Login() {
       <div className="relative hidden flex-col justify-between overflow-hidden bg-primary p-10 text-primary-foreground lg:flex">
         <div className="bed-grid-texture absolute inset-0 opacity-30" />
         <div className="relative flex items-center gap-2">
-          <BedDouble className="h-6 w-6" />
+          <Logo className="h-6 w-6" />
           <span className="font-display text-lg font-semibold">StayOps</span>
         </div>
         <div className="relative max-w-sm">
@@ -56,7 +56,7 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-5">
           <div className="mb-2 space-y-1 lg:hidden">
             <div className="flex items-center gap-2">
-              <BedDouble className="h-5 w-5 text-primary" />
+              <Logo className="h-5 w-5" />
               <span className="font-display text-lg font-semibold">StayOps</span>
             </div>
           </div>

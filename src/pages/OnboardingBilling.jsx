@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { BedDouble, CheckCircle2, Clock } from "lucide-react";
+import { CheckCircle2, Clock } from "lucide-react";
+import Logo from "@/components/branding/Logo";
 import api from "@/lib/api";
 import { loadRazorpayScript } from "@/lib/razorpay";
 import { Button } from "@/components/ui/button";
@@ -63,7 +64,7 @@ export default function OnboardingBilling() {
     <div className="flex min-h-screen items-center justify-center p-6">
       <div className="w-full max-w-md space-y-5">
         <div className="flex items-center gap-2">
-          <BedDouble className="h-5 w-5 text-primary" />
+          <Logo className="h-5 w-5" />
           <span className="font-display text-lg font-semibold">StayOps</span>
         </div>
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BedDouble } from "lucide-react";
+import Logo from "@/components/branding/Logo";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +39,7 @@ export default function RegisterOwner() {
     <div className="flex min-h-screen items-center justify-center p-6">
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-5">
         <div className="flex items-center gap-2">
-          <BedDouble className="h-5 w-5 text-primary" />
+          <Logo className="h-5 w-5" />
           <span className="font-display text-lg font-semibold">StayOps</span>
         </div>
 

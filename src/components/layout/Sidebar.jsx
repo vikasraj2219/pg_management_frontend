@@ -19,6 +19,7 @@ import {
   Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Logo from "@/components/branding/Logo";
 
 // Phase 1 ships Dashboard as a live route. Every other module is on the
 // roadmap (spec sections 3-26) and shown here so the information
@@ -53,7 +54,7 @@ export default function Sidebar({ open, onNavigate }) {
       )}
     >
       <div className="flex h-16 items-center gap-3 border-b border-border px-5">
-        <div className="bed-grid-texture h-8 w-8 rounded-md bg-primary/5" />
+        <Logo className="h-8 w-8" />
         <div className="leading-tight">
           <p className="font-display text-sm font-semibold">StayOps</p>
           <p className="text-[11px] text-muted-foreground">Hostel & PG Admin</p>
