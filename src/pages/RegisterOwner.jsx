@@ -27,7 +27,7 @@ export default function RegisterOwner() {
     setLoading(true);
     try {
       await registerOwner(form);
-      navigate("/dashboard", { replace: true });
+      navigate("/onboarding/billing", { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Could not create your organization.");
     } finally {

@@ -21,8 +21,10 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      await login(form.email, form.password);
-      navigate(from, { replace: true });
+      const loggedInUser = await login(form.email, form.password);
+      // platform_admin isn't scoped to an organization, so it never lands
+      // on the org dashboard — send it straight to the superadmin section.
+      navigate(loggedInUser?.role === "platform_admin" ? "/platform" : from, { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Unable to sign in. Check your credentials.");
     } finally {

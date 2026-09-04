@@ -1,8 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import PlatformLayout from "@/components/layout/PlatformLayout";
 import ProtectedRoute from "@/routes/ProtectedRoute";
+import { useAuth } from "@/context/AuthContext";
 import Login from "@/pages/Login";
 import RegisterOwner from "@/pages/RegisterOwner";
+import OnboardingBilling from "@/pages/OnboardingBilling";
 import Dashboard from "@/pages/Dashboard";
 import Properties from "@/pages/Properties";
 import RoomsBeds from "@/pages/RoomsBeds";
@@ -20,6 +23,7 @@ import Notices from "@/pages/Notices";
 import Reports from "@/pages/Reports";
 import AuditLog from "@/pages/AuditLog";
 import Settings from "@/pages/Settings";
+import PlatformAdmin from "@/pages/PlatformAdmin";
 import NotFound from "@/pages/NotFound";
 
 export default function App() {
@@ -27,6 +31,15 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register-owner" element={<RegisterOwner />} />
+
+      <Route
+        path="/onboarding/billing"
+        element={
+          <ProtectedRoute>
+            <OnboardingBilling />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         element={
@@ -54,8 +67,23 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
       </Route>
 
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route
+        element={
+          <ProtectedRoute>
+            <PlatformLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/platform" element={<PlatformAdmin />} />
+      </Route>
+
+      <Route path="/" element={<RootRedirect />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
+}
+
+function RootRedirect() {
+  const { user } = useAuth();
+  return <Navigate to={user?.role === "platform_admin" ? "/platform" : "/dashboard"} replace />;
 }

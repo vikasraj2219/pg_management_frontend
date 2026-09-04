@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import api from "@/lib/api";
@@ -10,15 +11,17 @@ import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Dialog } from "@/components/ui/dialog";
+import BillingTab from "@/components/billing/BillingTab";
 
 export default function Settings() {
-  const [tab, setTab] = useState("organization");
+  const [searchParams] = useSearchParams();
+  const [tab, setTab] = useState(searchParams.get("tab") || "organization");
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-2xl font-semibold">Settings</h1>
-        <p className="text-sm text-muted-foreground">Organization, property, and dashboard user settings.</p>
+        <p className="text-sm text-muted-foreground">Organization, property, billing, and dashboard user settings.</p>
       </div>
 
       <div className="flex gap-1 border-b border-border">
@@ -26,6 +29,7 @@ export default function Settings() {
           { id: "organization", label: "Organization" },
           { id: "properties", label: "Property settings" },
           { id: "users", label: "Users" },
+          { id: "billing", label: "Billing" },
         ].map((t) => (
           <button
             key={t.id}
@@ -42,6 +46,7 @@ export default function Settings() {
       {tab === "organization" && <OrganizationTab />}
       {tab === "properties" && <PropertiesTab />}
       {tab === "users" && <UsersTab />}
+      {tab === "billing" && <BillingTab />}
     </div>
   );
 }
